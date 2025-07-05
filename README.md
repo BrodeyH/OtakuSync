@@ -1,19 +1,21 @@
 # 🎌 OtakuSync  
 **Watched Anime List Importer for Trakt**
 
-OtakuSync is a Python-powered utility (`trakt-importer.py`) that transforms your anime watchlist into a Trakt watch history. It enriches titles using IMDb and Episodate, auto-tags favorites, fills in missing data, and exports your anime library into Trakt-compatible formats—ready for clean, instant import.
+OtakuSync is a Python-powered utility (`trakt-importer.py`) that syncs your anime watchlist directly into Trakt history. It enriches titles using IMDb and Episodate, auto-tags favorites, fills in missing data, and generates Trakt-compatible exports for seamless import.
+
+No more manual logging—just pure anime flow. ⚔️📺
 
 ---
 
-## 📦 Features
+## ✨ Features
 
-- 🔍 Enriches anime titles with episode info and IMDb IDs
-- 🧠 Automatically parses `SxxExx`, `1x12`, or freeform episodes
-- 🏷️ Flags entries with "favorite" for Trakt auto-rating (10)
-- 🔁 Includes retry logic for failed IMDb lookups
-- ✅ Verifies IMDb IDs against Trakt's database
-- 📄 Exports both `.json` and `.csv` for Trakt import
-- 🗂️ Tracks watch status and separates unmatched titles
+- 🔍 Enriches anime titles with IMDb IDs and episode info  
+- 🧠 Parses formats like `S01E12`, `1x12`, and freeform notes  
+- 🏷️ Flags "favorite" entries and auto-rates them 10  
+- 🔁 Retry logic for failed lookups  
+- ✅ Verifies entries with Trakt’s API  
+- 📄 Outputs `.json` and `.csv` for Trakt import  
+- 🗂️ Tracks viewing progress and unmatched titles  
 
 ---
 
@@ -27,19 +29,19 @@ Install dependencies via:
 pip install imdbpy requests thefuzz
 ```
 
-Standard library modules used:
-- `csv`, `json`, `re`, `datetime`, `time`, `sys`, `threading`, `concurrent.futures`
+Standard library modules used:  
+`csv`, `json`, `re`, `datetime`, `time`, `sys`, `threading`, `concurrent.futures`
 
 ---
 
-## 🔐 Setup: Trakt Client ID
+## 🔐 Trakt Setup
 
-OtakuSync connects with Trakt’s API using your personal Client ID.
+OtakuSync requires your personal Trakt Client ID to connect with Trakt’s API.
 
-1. Go to [Trakt Applications](https://trakt.tv/oauth/applications)
-2. Create a new app (no redirect URI required)
-3. Copy your **Client ID**
-4. Paste it into `trakt-importer.py` like this:
+1. Visit [Trakt Applications](https://trakt.tv/oauth/applications)  
+2. Create a new personal app (no redirect URI required)  
+3. Copy your **Client ID**  
+4. Paste it into `trakt-importer.py`:
 
 ```python
 TRAKT_CLIENT_ID = "your-client-id-here"
@@ -47,73 +49,74 @@ TRAKT_CLIENT_ID = "your-client-id-here"
 
 ---
 
-## 📋 Input Format
+## 📋 CSV Input Format
 
-Your anime list should be a CSV file named `anime list.csv` with the following columns:
+Your anime list should be saved as `anime list.csv` with these columns:
 
-- `Title` — Required. The name of the anime.
-- `lastepwatched` — Optional. Episode or season info (e.g. "S01E12", "1x12", etc.)
-- `notes` — Optional. Use `"favorite"` to auto-rate shows as 10.
+| Column | Description |
+|--------|-------------|
+| `Title` | Required. Name of the anime |
+| `lastepwatched` | Optional. Episode info like "S01E10", "1x10", etc. |
+| `notes` | Optional. Include `"favorite"` to auto-rate as 10 |
 
-💡 A sample file `anime list.csv` is included in this repo to use as a template.
+💡 This repo includes a sample `anime list.csv` for reference.
 
 ---
 
-## 🚀 How to Use
+## 🚀 How to Run
 
-Once you've added your anime list and Trakt Client ID:
+Once your anime list and Client ID are ready:
 
 ```bash
 python trakt-importer.py
 ```
 
-OtakuSync will process your entries and generate the following output:
+OtakuSync will generate:
 
-| File | Purpose |
-|------|---------|
-| `trakt-import.json` | ✅ For Trakt watch history importer |
-| `trakt-import.csv` | Alternative CSV version (for manual use) |
-| `watch_progress.csv` | Local tracker for status and last episode |
-| `missing_ids.csv` | Titles with unresolved IMDb entries |
-| `trakt-verified.csv` | Confirmed titles accepted by Trakt |
-| `trakt-unverified.csv` | Titles rejected by Trakt’s database |
-
----
-
-## 🧾 How Favorites Work
-
-Any anime with the word `favorite` (case-insensitive) in the `Title` or `notes` column will:
-
-- Be rated `10` in Trakt
-- Include a `rated_at` timestamp
-- Be marked as `watched_at` to appear in your watch history
+| Output File | Purpose |
+|-------------|---------|
+| `trakt-import.json` | ✅ Trakt watch history import |
+| `trakt-import.csv` | Alternative CSV version |
+| `watch_progress.csv` | Tracks episode status |
+| `missing_ids.csv` | Unresolved IMDb titles |
+| `trakt-verified.csv` | Trakt-approved titles |
+| `trakt-unverified.csv` | Titles not found by Trakt |
 
 ---
 
-## 📂 JSON Upload Instructions
+## 💖 Favorite Tagging
 
-Go to https://trakt.tv/settings/data
-Select Import Data then json.
-Upload `trakt-import.json`.  
-Your anime titles will then appear in your watched history with ratings and timestamps.
+Any anime with `"favorite"` (case-insensitive) in the `Title` or `notes` column will be:
 
----
-
-## ❤️ Support & Contributions
-
-OtakuSync is made for anime fans who crave clean organization, historical tracking, and seamless syncing with Trakt.
-
-Feel free to fork this project, submit pull requests, or tweak it to your own workflow. Future enhancements welcome!
+- Auto-rated `10` in Trakt  
+- Stamped with `rated_at`  
+- Marked `watched_at` for history import
 
 ---
 
-## 🧙‍♂️ Author
+## 📂 Upload to Trakt
+
+Go to [https://trakt.tv/settings/data](https://trakt.tv/settings/data)  
+Choose **Import Data > JSON**  
+Upload `trakt-import.json`  
+Your anime titles will appear in your Trakt watch history.
+
+---
+
+## 🤝 Support & Contributions
+
+OtakuSync is built for fans who crave order, automation, and anime.  
+Feel free to fork, star, or submit pull requests for features and improvements!
+
+---
+
+## 🧙 Author
 
 Created by [Brodey]  
-Built with creativity, strategy, and a touch of anime spirit ⚔️✨
+Fueled by creativity, strategy, and anime spirit ⚔️✨
 
 ---
 
 ## 📄 License
 
-This project is licensed under the MIT License.
+Licensed under the MIT License.
