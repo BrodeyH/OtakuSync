@@ -92,8 +92,8 @@ Any anime with the word `favorite` (case-insensitive) in the `Title` or `notes` 
 
 ## 📂 JSON Upload Instructions
 
-Go to [Trakt Import Your Data] https://trakt.tv/settings/data
-Select json
+Go to https://trakt.tv/settings/data
+Select Import Data then json
 Upload `trakt-import.json`  
 Your anime titles will appear in your watched history with ratings and timestamps.
 
