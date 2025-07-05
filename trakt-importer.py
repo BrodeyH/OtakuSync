@@ -16,7 +16,7 @@ missing_output = "missing_ids.csv"
 verified_output = "trakt-verified.csv"
 unverified_output = "trakt-unverified.csv"
 max_threads = 10
-TRAKT_CLIENT_ID = "82df7078b6c5b2c14992a75fd601f189966f28c770c90f2cccf5c837984a1bd7"
+TRAKT_CLIENT_ID = "ADD YOUR TRAKT_CLIENT_ID HERE"
 now = datetime.utcnow().isoformat(timespec="seconds") + "Z"
 
 # === SETUP ===
